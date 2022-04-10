@@ -1,9 +1,9 @@
-identidoc:
+my_nodejs:
   build: .
   ports:
-    - "5000:5000"
+    - "80:3000"
   enviropment:
-    ENV: DEV
+    ENV: LOG_FNAME
   volumes:
     - /logs
  
