@@ -1,0 +1,9 @@
+identidoc:
+  build: .
+  ports:
+    - "5000:5000"
+  enviropment:
+    ENV: DEV
+  volumes:
+    - /logs
+ 
