@@ -1,9 +1,30 @@
-my_nodejs:
-  build: .
-  ports:
-    - "80:3000"
-  enviropment:
-    ENV: LOG_FNAME
-  volumes:
-    - /logs
+version: '3'
+services:
+  anyapp:
+    container_name: anyapp
+    build: 
+      context: anyapp
+      dockerfile: Dockerfile
+    volumes:
+      - /logs
+    environment:
+      - LOG_FNAME=logs.txt
+      - COMPOSE_PROJECT_NAME
+    command: echo "I'm running ${COMPOSE_PROJECT_NAME}" 
+  logservice: 
+    container_name: logsevice
+    build: 
+      context: logservice
+      dockerfile: Dockerfile
+    expose:
+      - "3000"
+    ports:
+      - "80:3000"
+    depends_on:
+      - anyapp
+    volumes:
+      - /logs
+    environment:
+      - LOG_FNAME=logs.txt
+  
  
