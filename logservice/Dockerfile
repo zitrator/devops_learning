@@ -11,3 +11,5 @@ ENTRYPOINT ["node", "myservice.js"]
 # docker stop $(docker ps -lq)
 # docker rm $(docker ps -lq)
 # 
+# 
+# 

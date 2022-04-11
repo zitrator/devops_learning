@@ -6,25 +6,26 @@ services:
       context: anyapp
       dockerfile: Dockerfile
     volumes:
-      - /logs
+      - common_logs:/common_logs
     environment:
-      - LOG_FNAME=logs.txt
-      - COMPOSE_PROJECT_NAME
-    command: echo "I'm running ${COMPOSE_PROJECT_NAME}" 
+      - LOG_FNAME="logs.txt"
+    command: echo "I'm running > /common_logs/logs.txt"
   logservice: 
     container_name: logsevice
     build: 
       context: logservice
       dockerfile: Dockerfile
+    volumes:
+      - common_logs:/common_logs
     expose:
       - "3000"
     ports:
       - "80:3000"
     depends_on:
       - anyapp
-    volumes:
-      - /logs
     environment:
       - LOG_FNAME=logs.txt
+volumes:
+  common_logs:
   
  
