@@ -1,28 +1,31 @@
 version: '3'
 services:
-  anyapp:
-    container_name: anyapp
+  js_app:
+    container_name: js_app
     build: 
-      context: anyapp
+      context: js_app
       dockerfile: Dockerfile
     volumes:
       - common_logs:/common_logs
+    expose:
+      - "3001"
+    ports:
+      - "3001:3001"
     environment:
       - LOG_FNAME="logs.txt"
-    command: echo "I'm running > /common_logs/logs.txt"
-  logservice: 
-    container_name: logsevice
+  logview: 
+    container_name: logview
     build: 
-      context: logservice
+      context: logview
       dockerfile: Dockerfile
     volumes:
       - common_logs:/common_logs
     expose:
       - "3000"
     ports:
-      - "80:3000"
+      - "3000:3000"
     depends_on:
-      - anyapp
+      - js_app
     environment:
       - LOG_FNAME=logs.txt
 volumes:
